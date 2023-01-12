@@ -1,0 +1,10 @@
+docker-compose up
+docker-compose up --build
+
+service docker status/start/stop/restart
+
+docker system prune -a
+docker volume prune
+docker network prune
+docker rm / rmi
+docker images
