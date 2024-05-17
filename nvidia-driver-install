@@ -1,0 +1,6 @@
+sudo apt-get remove --purge '^nvidia-*'
+sudo apt-get autoremove
+sudo reboot
+sudo apt-get install nvidia-driver-535
+sudo ubuntu-driver list
+sudo ubuntu-driver install nvidia:535
