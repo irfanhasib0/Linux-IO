@@ -1,0 +1,30 @@
+version : "3"
+services:
+    test:
+        build:
+           context: .
+           dockerfile: Dockerfile
+        #environment:
+        #     - NAME: mlenv
+        ports: 
+            - 8010:8010
+        environments:
+            - DISPLAY=`echo $DISPLAY | sed 's/^[^:]*\(.*\)/172.17.0.1\1/'`
+            - NVIDIA_DRIVER_CAPABILITIES=all
+            - NVIDIA_VISIBLE_DEVICES=all
+            - NVIDIA_REQUIRE_CUDA=cuda>=12.1
+            - QT_X11_NO_MITSHM=1
+        volumes:
+            - ../../:/projects
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
+            - $HOME/.Xauthority:/root/.Xauthority
+        container_name: mlenv
+        command: /bin/bash -c "jupyter-lab --ip=0.0.0.0 --port=8010 --NotebookApp.token='' --allow-root"
+        #command: sleep 5h
+    #deploy:
+    #  resources:
+    #    reservations:
+    #      devices:
+    #        - driver: nvidia
+    #          count: 1
+    #          capabilities: [gpu]
